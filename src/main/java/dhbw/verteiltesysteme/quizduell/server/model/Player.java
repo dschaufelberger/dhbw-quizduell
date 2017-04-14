@@ -1,9 +1,6 @@
 package dhbw.verteiltesysteme.quizduell.server.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Random;
 
 @Entity
@@ -32,16 +29,16 @@ public class Player {
         return name;
     }
 
-    public String setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
     public static String generateRandomName() {
         StringBuilder sb = new StringBuilder(6);
-        Random random = new Random(System.currentTimeMillis());
+        Random random = new Random(System.nanoTime());
 
         for (int i = 0; i < sb.capacity(); i++) {
-            char letter = (char)(61 + random.nextInt(26));
+            char letter = (char)(97 + random.nextInt(26));
             sb.append(letter);
         }
 
