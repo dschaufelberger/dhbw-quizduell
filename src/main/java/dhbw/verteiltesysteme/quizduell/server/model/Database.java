@@ -5,9 +5,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public enum Database {
-    ENTITY_MANAGER(Persistence.createEntityManagerFactory("emf"));
+    INSTANCE(Persistence.createEntityManagerFactory("emf"));
 
     private EntityManager entityManager;
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
 
     Database(EntityManagerFactory factory) {
         this.entityManager = factory.createEntityManager();
