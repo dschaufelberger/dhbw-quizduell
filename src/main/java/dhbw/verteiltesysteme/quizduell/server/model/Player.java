@@ -6,9 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Random;
 
-/**
- * Created by Dodo on 30.03.2017.
- */
 @Entity
 public class Player {
     private int id;

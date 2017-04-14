@@ -1,8 +1,5 @@
 package dhbw.verteiltesysteme.quizduell.server.model;
 
-/**
- * Created by Dodo on 30.03.2017.
- */
 public class Answer {
     private int id;
     private String text;

@@ -2,9 +2,6 @@ package dhbw.verteiltesysteme.quizduell.server.model;
 
 import java.util.*;
 
-/**
- * Created by Dodo on 30.03.2017.
- */
 public class Round {
     private int round;
     private int turn;

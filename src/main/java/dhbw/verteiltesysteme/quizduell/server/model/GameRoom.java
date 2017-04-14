@@ -3,9 +3,6 @@ package dhbw.verteiltesysteme.quizduell.server.model;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by Dodo on 30.03.2017.
- */
 @Entity
 public class GameRoom {
     private int gameId;

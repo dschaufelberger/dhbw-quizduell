@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Dodo on 30.03.2017.
- */
 public class AnswerSet {
     private int id;
     private List<Answer> answers = new ArrayList<>(3);
