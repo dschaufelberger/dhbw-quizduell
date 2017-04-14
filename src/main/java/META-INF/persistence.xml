@@ -10,7 +10,7 @@
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 
             <property name="hibernate.connection.url"
-                      value="jdbc:mysql://localhost/vorlesung?autoReconnect=true" />
+                      value="jdbc:mysql://localhost/quizduell?autoReconnect=true" />
             <property name="hibernate.connection.username" value="dodo" />
             <property name="hibernate.connection.password" value="dodo" />
 
