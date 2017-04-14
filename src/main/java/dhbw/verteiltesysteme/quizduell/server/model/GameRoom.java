@@ -1,4 +1,4 @@
-package java.dhbw.verteiltesysteme.quizduell.server.model;
+package dhbw.verteiltesysteme.quizduell.server.model;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,4 +1,4 @@
-package java.dhbw.verteiltesysteme.quizduell.server.model;
+package dhbw.verteiltesysteme.quizduell.server.model;
 
 /**
  * Created by Dodo on 30.03.2017.
