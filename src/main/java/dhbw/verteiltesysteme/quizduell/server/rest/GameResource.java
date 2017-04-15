@@ -2,6 +2,7 @@ package dhbw.verteiltesysteme.quizduell.server.rest;
 
 import dhbw.verteiltesysteme.quizduell.server.model.Database;
 import dhbw.verteiltesysteme.quizduell.server.model.GameRoom;
+import dhbw.verteiltesysteme.quizduell.server.rest.representations.GameRepresentation;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
@@ -18,9 +19,9 @@ public class GameResource extends ServerResource {
         if (request.containsKey("id")) {
             EntityManager entityManager = Database.INSTANCE.getEntityManager();
             GameRoom gameRoom = entityManager.find(GameRoom.class, Integer.parseInt(request.get("id").toString()));
-            return new JacksonRepresentation<Game>(Game.from(gameRoom));
+            return new JacksonRepresentation<GameRepresentation>(GameRepresentation.from(gameRoom));
         }
 
-        return new JacksonRepresentation<Game>(Game.notExisting());
+        return new JacksonRepresentation<GameRepresentation>(GameRepresentation.notExisting());
     }
 }

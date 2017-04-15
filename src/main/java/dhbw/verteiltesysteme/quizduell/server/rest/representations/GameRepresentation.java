@@ -1,29 +1,29 @@
-package dhbw.verteiltesysteme.quizduell.server.rest;
+package dhbw.verteiltesysteme.quizduell.server.rest.representations;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dhbw.verteiltesysteme.quizduell.server.model.GameRoom;
 import dhbw.verteiltesysteme.quizduell.server.model.GameState;
 
 @JsonIgnoreProperties("NON_EXISTING")
-public class Game {
+public class GameRepresentation {
     public int id;
     public GameState state;
 
-    public static Game notExisting() {
-        return Game.from(null);
+    public static GameRepresentation notExisting() {
+        return GameRepresentation.from(null);
     }
 
-    public static Game from(GameRoom gameRoom) {
+    public static GameRepresentation from(GameRoom gameRoom) {
         int gameId = 0;
         GameState state = GameState.NONE;
         if (gameRoom != null) {
             gameId = gameRoom.getGameId();
             state = gameRoom.getState();
         }
-        return new Game(gameId, state);
+        return new GameRepresentation(gameId, state);
     }
 
-    private Game(int id, GameState state) {
+    private GameRepresentation(int id, GameState state) {
         this.id = id;
         this.state = state;
     }
