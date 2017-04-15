@@ -1,25 +1,34 @@
 package dhbw.verteiltesysteme.quizduell;
 
-import dhbw.verteiltesysteme.quizduell.server.model.GameRoom;
-import dhbw.verteiltesysteme.quizduell.server.model.Player;
+import dhbw.verteiltesysteme.quizduell.server.rest.GameResource;
+import dhbw.verteiltesysteme.quizduell.server.rest.RegistrationResource;
+import org.restlet.Application;
+import org.restlet.Component;
+import org.restlet.Restlet;
+import org.restlet.data.Protocol;
+import org.restlet.routing.Router;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
-public class Quizduell {
-    public static void main(String[] args) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("emf");
-        EntityManager entityManager = factory.createEntityManager();
+public class Quizduell extends Application{
+    public void startServer(int port) throws Exception {
+        Component component = new Component();
+        component.getServers().add(Protocol.HTTP, port);
+        component.getDefaultHost().attach(this);
+        component.start();
+    }
 
-        GameRoom gameRoom = new GameRoom();
-        Player p1 = new Player(Player.generateRandomName());
-        Player p2 = new Player(Player.generateRandomName());
-        gameRoom.setPlayer1(p1);
-        gameRoom.setPlayer2(p2);
+    @Override
+    public Restlet getInboundRoot() {
+        Router router = new Router(getContext());
 
-        entityManager.getTransaction().begin();
-        entityManager.persist(gameRoom);
-        entityManager.getTransaction().commit();
+        router.attach("/game/{id}", GameResource.class);
+        router.attach("/enter", RegistrationResource.class);
+
+        return router;
+    }
+
+    public static void main(String[] args) throws Exception {
+        Quizduell quizduellApp = new Quizduell();
+        quizduellApp.startServer(80);
     }
 }

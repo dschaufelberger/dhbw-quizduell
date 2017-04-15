@@ -1,17 +1,13 @@
 package dhbw.verteiltesysteme.quizduell.server.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class GameRoom {
     private int gameId;
     private Player player1;
     private Player player2;
+    private GameState state;
     private Match match;
 
     @Id
@@ -24,7 +20,24 @@ public class GameRoom {
         this.gameId = gameId;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Enumerated(value = EnumType.STRING)
+    public GameState getState() {
+        return state;
+    }
+    public void setState(GameState state) {
+        this.state = state;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    public Match getMatch() {
+        return match;
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
     public Player getPlayer1() {
         return player1;
     }
@@ -33,7 +46,7 @@ public class GameRoom {
         this.player1 = player1;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     public Player getPlayer2() {
         return player2;
     }
@@ -41,4 +54,5 @@ public class GameRoom {
     public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
+
 }
