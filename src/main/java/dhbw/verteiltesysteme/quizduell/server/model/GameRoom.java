@@ -10,6 +10,10 @@ public class GameRoom {
     private GameState state;
     private Match match;
 
+    public GameRoom() {
+        this.state = GameState.CREATED;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int getGameId() {
