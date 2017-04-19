@@ -2,6 +2,7 @@ package dhbw.verteiltesysteme.quizduell;
 
 import dhbw.verteiltesysteme.quizduell.server.rest.GameResource;
 import dhbw.verteiltesysteme.quizduell.server.rest.RegistrationResource;
+import dhbw.verteiltesysteme.quizduell.server.rest.RoundResource;
 import org.restlet.Application;
 import org.restlet.Component;
 import org.restlet.Restlet;
@@ -21,7 +22,8 @@ public class Quizduell extends Application{
     public Restlet getInboundRoot() {
         Router router = new Router(getContext());
 
-        router.attach("/game/{id}", GameResource.class);
+        router.attach("/game/{gameId}", GameResource.class);
+        router.attach("/game/{gameId}/turn", RoundResource.class);
         router.attach("/enter", RegistrationResource.class);
 
         return router;

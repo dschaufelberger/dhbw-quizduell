@@ -16,9 +16,9 @@ public class GameResource extends ServerResource {
     @Get
     public Representation retrieveInformation() {
         Map<String, Object> request = getRequestAttributes();
-        if (request.containsKey("id")) {
+        if (request.containsKey("gameId")) {
             EntityManager entityManager = Database.INSTANCE.getEntityManager();
-            GameRoom gameRoom = entityManager.find(GameRoom.class, Integer.parseInt(request.get("id").toString()));
+            GameRoom gameRoom = entityManager.find(GameRoom.class, Integer.parseInt(request.get("gameId").toString()));
             return new JacksonRepresentation<GameRepresentation>(GameRepresentation.from(gameRoom));
         }
 
