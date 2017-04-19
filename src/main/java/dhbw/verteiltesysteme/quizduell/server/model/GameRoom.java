@@ -14,6 +14,11 @@ public class GameRoom {
         this.state = GameState.CREATED;
     }
 
+    @Transient
+    public Round getCurrentRound() {
+        return this.match.getNextRound();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int getGameId() {
@@ -59,4 +64,12 @@ public class GameRoom {
         this.player2 = player2;
     }
 
+    public void startGame() {
+        if (getPlayer1() == null || getPlayer2() == null) {
+            return;
+        }
+
+        this.match = new Match();
+        this.state = GameState.STARTED;
+    }
 }

@@ -30,11 +30,10 @@ public class RoundResource extends ServerResource {
             return new EmptyRepresentation();
         }
 
-        List<Round> rounds = gameRoom.getMatch().getRounds();
-        Round current = rounds
-                .stream()
-                .filter(round -> round.getId() == gameRoom.getMatch().getCurrentRound())
-                .collect(Collectors.toList()).get(0);
+        Round current = gameRoom.getCurrentRound();
+        if (current == null) {
+            return new EmptyRepresentation();
+        }
 
         return new JacksonRepresentation<>(new RoundRepresentation(current));
     }

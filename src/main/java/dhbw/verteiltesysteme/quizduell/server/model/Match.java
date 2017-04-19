@@ -3,6 +3,7 @@ package dhbw.verteiltesysteme.quizduell.server.model;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity(name = "Game")
 public class Match {
@@ -12,11 +13,11 @@ public class Match {
 
     public Match() {
         this(new ArrayList<Round>(6));
-        this.currentRound = 1;
     }
 
     public Match(List<Round> rounds) {
         this.rounds = rounds;
+        this.currentRound = 1;
     }
 
     @Id
@@ -31,6 +32,19 @@ public class Match {
 
     public int getCurrentRound() {
         return currentRound;
+    }
+
+    @Transient
+    public Round getNextRound() {
+        List<Round> rounds = this.rounds.stream()
+                .filter(round -> round.getRound() == getCurrentRound())
+                .collect(Collectors.toList());
+
+        if (rounds.isEmpty()) {
+            return null;
+        }
+
+        return rounds.get(0);
     }
 
     public void setCurrentRound(int currentRound) {
