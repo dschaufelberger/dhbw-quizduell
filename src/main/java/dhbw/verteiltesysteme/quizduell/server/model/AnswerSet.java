@@ -8,8 +8,12 @@ public class AnswerSet {
     private int id;
     private List<Answer> answers = new ArrayList<>(3);
 
+    public int getAnswerCount() {
+        return this.answers.size();
+    }
+
     public boolean isComplete() {
-        return this.answers.size() == 3;
+        return this.getAnswerCount() == 3;
     }
 
     public void add(Answer answer) {
