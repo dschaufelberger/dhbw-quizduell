@@ -23,7 +23,7 @@ public class Quizduell extends Application{
         Router router = new Router(getContext());
 
         router.attach("/game/{gameId}", GameResource.class);
-        router.attach("/game/{gameId}/turn", RoundResource.class);
+        router.attach("/game/{gameId}/round/{roundNum}", RoundResource.class);
         router.attach("/enter", RegistrationResource.class);
 
         return router;

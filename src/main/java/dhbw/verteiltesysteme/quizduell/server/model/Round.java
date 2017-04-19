@@ -9,19 +9,25 @@ import java.util.List;
 @Entity
 public class Round {
     private int id;
-    private int round;
+    private int number;
     private int turn;
     private List<Question> questions = new ArrayList<>(3);
     private HashMap<Player, AnswerSet> playerAnswers = new HashMap<>(3);
 
-    public Round(int round, Collection<Question> questions) {
-        this.round = round;
+    public Round(int number, Collection<Question> questions) {
+        this.number = number;
         this.questions = new ArrayList<>(questions);
+        this.turn = 1;
     }
 
     public void provideAnswer(Player player, Answer answer) {
+        if (turn > 3) {
+            return;
+        }
+
         AnswerSet answers = this.playerAnswers.get(player);
         answers.add(answer);
+        this.turn++;
     }
 
     @Id
@@ -34,12 +40,12 @@ public class Round {
         this.id = id;
     }
 
-    public int getRound() {
-        return round;
+    public int getNumber() {
+        return number;
     }
 
-    public void setRound(int round) {
-        this.round = round;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public int getTurn() {

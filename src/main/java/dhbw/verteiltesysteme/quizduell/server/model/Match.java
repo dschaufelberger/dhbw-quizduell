@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 @Entity(name = "Game")
 public class Match {
     private int id;
-    private int currentRound;
+    private int currentRoundNumber;
     private List<Round> rounds;
 
     public Match() {
@@ -17,7 +17,25 @@ public class Match {
 
     public Match(List<Round> rounds) {
         this.rounds = rounds;
-        this.currentRound = 1;
+        this.currentRoundNumber = 1;
+    }
+
+    @Transient
+    public Round getRound(int roundNumber) {
+        List<Round> rounds = this.rounds.stream()
+                .filter(round -> round.getNumber() == roundNumber)
+                .collect(Collectors.toList());
+
+        if (rounds.isEmpty()) {
+            return null;
+        }
+
+        return rounds.get(0);
+    }
+
+    @Transient
+    public Round getCurrentRound() {
+        return getRound(getCurrentRoundNumber());
     }
 
     @Id
@@ -30,25 +48,13 @@ public class Match {
         this.id = id;
     }
 
-    public int getCurrentRound() {
-        return currentRound;
+    public int getCurrentRoundNumber() {
+        return currentRoundNumber;
     }
 
-    @Transient
-    public Round getNextRound() {
-        List<Round> rounds = this.rounds.stream()
-                .filter(round -> round.getRound() == getCurrentRound())
-                .collect(Collectors.toList());
 
-        if (rounds.isEmpty()) {
-            return null;
-        }
-
-        return rounds.get(0);
-    }
-
-    public void setCurrentRound(int currentRound) {
-        this.currentRound = currentRound;
+    public void setCurrentRoundNumber(int currentRoundNumber) {
+        this.currentRoundNumber = currentRoundNumber;
     }
 
     @OneToMany(cascade = CascadeType.ALL)
