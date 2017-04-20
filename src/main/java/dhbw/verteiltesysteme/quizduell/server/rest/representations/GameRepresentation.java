@@ -8,6 +8,8 @@ import dhbw.verteiltesysteme.quizduell.server.model.GameState;
 public class GameRepresentation {
     public int id;
     public int currentRound;
+    public String player1;
+    public String player2;
     public GameState state;
 
     public static GameRepresentation notExisting() {
@@ -16,19 +18,21 @@ public class GameRepresentation {
 
     public static GameRepresentation from(GameRoom gameRoom) {
         int gameId = 0;
-        int currentRound = 0;
         GameState state = GameState.NONE;
+        GameRepresentation game = new GameRepresentation();
+
         if (gameRoom != null) {
-            gameId = gameRoom.getGameId();
-            state = gameRoom.getState();
-            currentRound = gameRoom.getCurrentRound().getNumber();
+            game.id = gameRoom.getGameId();
+            game.state = gameRoom.getState();
+            game.currentRound = gameRoom.getCurrentRound().getNumber();
+            game.player1 = gameRoom.getPlayer1().getName();
+            game.player2 = gameRoom.getPlayer2().getName();
         }
-        return new GameRepresentation(gameId, state, currentRound);
+
+        return game;
     }
 
-    private GameRepresentation(int id, GameState state, int currentRound) {
-        this.id = id;
-        this.state = state;
-        this.currentRound = currentRound;
+    private GameRepresentation() {
+        this.state = GameState.NONE;
     }
 }

@@ -14,6 +14,9 @@ public class Round {
     private List<Question> questions = new ArrayList<>(3);
     private HashMap<Player, AnswerSet> playerAnswers = new HashMap<>(3);
 
+    public Round() {
+    }
+
     public Round(int number, Collection<Question> questions) {
         this.number = number;
         this.questions = new ArrayList<>(questions);
