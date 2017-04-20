@@ -30,7 +30,12 @@ public class Quizduell extends Application{
     }
 
     public static void main(String[] args) throws Exception {
+        int onPort = 80;
+        if (args.length > 0) {
+            onPort = Integer.parseInt(args[0]);
+        }
+
         Quizduell quizduellApp = new Quizduell();
-        quizduellApp.startServer(80);
+        quizduellApp.startServer(onPort);
     }
 }
