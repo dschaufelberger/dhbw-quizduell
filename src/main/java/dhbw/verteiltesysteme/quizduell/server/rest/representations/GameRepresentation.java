@@ -25,8 +25,8 @@ public class GameRepresentation {
             game.id = gameRoom.getGameId();
             game.state = gameRoom.getState();
             game.currentRound = gameRoom.getCurrentRound().getNumber();
-            game.player1 = gameRoom.getPlayer1().getName();
-            game.player2 = gameRoom.getPlayer2().getName();
+            game.player1 = gameRoom.getPlayer1() == null ? "" : gameRoom.getPlayer1().getName();
+            game.player2 = gameRoom.getPlayer2() == null ? "" : gameRoom.getPlayer2().getName();
         }
 
         return game;

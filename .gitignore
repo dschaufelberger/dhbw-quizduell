@@ -30,8 +30,8 @@
 ## Plugin-specific files:
 
 # IntelliJ
-/out/
-!/out/artifacts/dhbw_quizduell_jar/*
+!out/
+
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
