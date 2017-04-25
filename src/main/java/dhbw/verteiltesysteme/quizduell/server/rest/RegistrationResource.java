@@ -38,6 +38,8 @@ public class RegistrationResource extends ServerResource{
             } else {
                 room.setPlayer2(player);
             }
+
+            room.startGame();
         }
 
         entityManager.persist(room);

@@ -1,7 +1,6 @@
 package dhbw.verteiltesysteme.quizduell;
 
 import dhbw.verteiltesysteme.quizduell.server.rest.GameResource;
-import dhbw.verteiltesysteme.quizduell.server.rest.QuestionResource;
 import dhbw.verteiltesysteme.quizduell.server.rest.RegistrationResource;
 import dhbw.verteiltesysteme.quizduell.server.rest.RoundResource;
 import org.restlet.Application;
@@ -24,15 +23,19 @@ public class Quizduell extends Application{
         Router router = new Router(getContext());
 
         router.attach("/game/{gameId}", GameResource.class);
-        router.attach("/game/{gameId}/round", RoundResource.class);
-        router.attach("/game/{gameId}/round/{roundId}/question", QuestionResource.class);
+        router.attach("/game/{gameId}/round/{roundNum}", RoundResource.class);
         router.attach("/enter", RegistrationResource.class);
 
         return router;
     }
 
     public static void main(String[] args) throws Exception {
+        int onPort = 80;
+        if (args.length > 0) {
+            onPort = Integer.parseInt(args[0]);
+        }
+
         Quizduell quizduellApp = new Quizduell();
-        quizduellApp.startServer(80);
+        quizduellApp.startServer(onPort);
     }
 }

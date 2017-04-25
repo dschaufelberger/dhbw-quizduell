@@ -7,6 +7,9 @@ import dhbw.verteiltesysteme.quizduell.server.model.GameState;
 @JsonIgnoreProperties("NON_EXISTING")
 public class GameRepresentation {
     public int id;
+    public int currentRound;
+    public String player1;
+    public String player2;
     public GameState state;
 
     public static GameRepresentation notExisting() {
@@ -16,15 +19,20 @@ public class GameRepresentation {
     public static GameRepresentation from(GameRoom gameRoom) {
         int gameId = 0;
         GameState state = GameState.NONE;
+        GameRepresentation game = new GameRepresentation();
+
         if (gameRoom != null) {
-            gameId = gameRoom.getGameId();
-            state = gameRoom.getState();
+            game.id = gameRoom.getGameId();
+            game.state = gameRoom.getState();
+            game.currentRound = gameRoom.getCurrentRound().getNumber();
+            game.player1 = gameRoom.getPlayer1() == null ? "" : gameRoom.getPlayer1().getName();
+            game.player2 = gameRoom.getPlayer2() == null ? "" : gameRoom.getPlayer2().getName();
         }
-        return new GameRepresentation(gameId, state);
+
+        return game;
     }
 
-    private GameRepresentation(int id, GameState state) {
-        this.id = id;
-        this.state = state;
+    private GameRepresentation() {
+        this.state = GameState.NONE;
     }
 }

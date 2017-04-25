@@ -1,6 +1,8 @@
 package dhbw.verteiltesysteme.quizduell.server.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 @Entity
 public class GameRoom {
@@ -12,6 +14,11 @@ public class GameRoom {
 
     public GameRoom() {
         this.state = GameState.CREATED;
+    }
+
+    @Transient
+    public Round getCurrentRound() {
+        return this.match.getCurrentRound();
     }
 
     @Id
@@ -59,4 +66,18 @@ public class GameRoom {
         this.player2 = player2;
     }
 
+    public void startGame() {
+        if (getPlayer1() == null || getPlayer2() == null) {
+            return;
+        }
+
+        int capacity = 6;
+        ArrayList<Round> rounds = new ArrayList<>(6);
+        for (int roundNumber = 1; roundNumber <= capacity; roundNumber++) {
+            rounds.add(new Round(roundNumber, Collections.EMPTY_LIST));
+        }
+
+        this.match = new Match(rounds);
+        this.state = GameState.STARTED;
+    }
 }

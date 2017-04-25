@@ -22,6 +22,7 @@ public class RoundResource extends ServerResource {
     @Get
     public Representation getRoundInformation() {
         String gameId = getAttribute("gameId");
+        String roundNum = getAttribute("roundNum");
 
         EntityManager entityManager = Database.INSTANCE.getEntityManager();
         GameRoom gameRoom = entityManager.find(GameRoom.class, Integer.parseInt(gameId));
@@ -30,11 +31,11 @@ public class RoundResource extends ServerResource {
             return new EmptyRepresentation();
         }
 
-        List<Round> rounds = gameRoom.getMatch().getRounds();
-        Round current = rounds
-                .stream()
-                .filter(round -> round.getId() == gameRoom.getMatch().getCurrentRound())
-                .collect(Collectors.toList()).get(0);
-        return new JacksonRepresentation<>(new RoundRepresentation(current));
+        Round round = gameRoom.getMatch().getRound(Integer.parseInt(roundNum));
+        if (round == null) {
+            return new EmptyRepresentation();
+        }
+
+        return new JacksonRepresentation<>(new RoundRepresentation(round));
     }
 }
