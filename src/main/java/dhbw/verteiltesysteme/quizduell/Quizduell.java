@@ -3,6 +3,7 @@ package dhbw.verteiltesysteme.quizduell;
 import dhbw.verteiltesysteme.quizduell.server.rest.GameResource;
 import dhbw.verteiltesysteme.quizduell.server.rest.RegistrationResource;
 import dhbw.verteiltesysteme.quizduell.server.rest.RoundResource;
+import dhbw.verteiltesysteme.quizduell.server.rest.RoundResultResource;
 import org.restlet.Application;
 import org.restlet.Component;
 import org.restlet.Restlet;
@@ -24,6 +25,7 @@ public class Quizduell extends Application{
 
         router.attach("/game/{gameId}", GameResource.class);
         router.attach("/game/{gameId}/round/{roundNum}", RoundResource.class);
+        router.attach("/game/{gameId}/round/{roundNum}/result", RoundResultResource.class);
         router.attach("/enter", RegistrationResource.class);
 
         return router;
