@@ -8,6 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Answer {
     private int id;
+    private String letter;
     private String text;
     private boolean isCorrect;
 
@@ -27,6 +28,14 @@ public class Answer {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLetter() {
+        return letter;
+    }
+
+    public void setLetter(String letter) {
+        this.letter = letter;
     }
 
     public String getText() {

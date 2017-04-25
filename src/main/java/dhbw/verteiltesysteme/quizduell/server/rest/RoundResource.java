@@ -35,7 +35,6 @@ public class RoundResource extends ServerResource {
                 .stream()
                 .filter(round -> round.getId() == gameRoom.getMatch().getCurrentRound())
                 .collect(Collectors.toList()).get(0);
-
         return new JacksonRepresentation<>(new RoundRepresentation(current));
     }
 }
