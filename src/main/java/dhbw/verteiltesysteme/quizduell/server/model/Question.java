@@ -3,13 +3,14 @@ package dhbw.verteiltesysteme.quizduell.server.model;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 public class Question {
     private int id;
     private String text;
     private String topic;
-    private HashMap<Integer, Answer> answers;
+    private Map<Integer, Answer> answers = new HashMap<>(4);
     private Answer solution;
 
     public Question(String text, String topic, Collection<Answer> answers, Answer solution) {
@@ -18,7 +19,7 @@ public class Question {
         this.solution = solution;
 
         for (Answer answer : answers) {
-            this.answers.put(answer.getId(), answer);
+            this.answers.put(answer.getNumber(), answer);
         }
     }
 
@@ -27,7 +28,7 @@ public class Question {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -52,13 +53,13 @@ public class Question {
         this.topic = topic;
     }
 
-    //@OneToMany(cascade = CascadeType.ALL)
-    @Transient
-    public HashMap<Integer, Answer> getAnswers() {
+    @OneToMany
+    @MapKeyColumn(name = "number")
+    public Map<Integer, Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(HashMap<Integer, Answer> answers) {
+    public void setAnswers(Map<Integer, Answer> answers) {
         this.answers = answers;
     }
 }

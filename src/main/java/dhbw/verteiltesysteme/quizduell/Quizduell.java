@@ -1,5 +1,8 @@
 package dhbw.verteiltesysteme.quizduell;
 
+import dhbw.verteiltesysteme.quizduell.server.model.Answer;
+import dhbw.verteiltesysteme.quizduell.server.model.Database;
+import dhbw.verteiltesysteme.quizduell.server.model.Question;
 import dhbw.verteiltesysteme.quizduell.server.rest.GameResource;
 import dhbw.verteiltesysteme.quizduell.server.rest.RegistrationResource;
 import dhbw.verteiltesysteme.quizduell.server.rest.RoundResource;
@@ -9,6 +12,9 @@ import org.restlet.Component;
 import org.restlet.Restlet;
 import org.restlet.data.Protocol;
 import org.restlet.routing.Router;
+
+import javax.persistence.EntityManager;
+import java.util.ArrayList;
 
 
 public class Quizduell extends Application{

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Answer {
     private int id;
+    private int number;
     private String text;
     private boolean isCorrect;
 
@@ -20,13 +21,21 @@ public class Answer {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public String getText() {

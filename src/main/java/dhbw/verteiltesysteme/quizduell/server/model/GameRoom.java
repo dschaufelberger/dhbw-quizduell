@@ -22,7 +22,7 @@ public class GameRoom {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getGameId() {
         return gameId;
     }
