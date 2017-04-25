@@ -13,6 +13,10 @@ public class Question {
     private Map<Integer, Answer> answers = new HashMap<>(4);
     private Answer solution;
 
+    public Question() {
+
+    }
+
     public Question(String text, String topic, Collection<Answer> answers, Answer solution) {
         this.text = text;
         this.topic = topic;
