@@ -18,7 +18,7 @@ public class QuestionRepresentation {
         this.text = question.getText();
 
         for (Answer answer : question.getAnswers().values()) {
-            this.answers.put(answer.getLetter(), answer.getText());
+            this.answers.put(String.valueOf((char)(64 + answer.getNumber())), answer.getText());
         }
     }
 }

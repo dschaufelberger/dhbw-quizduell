@@ -2,9 +2,11 @@ package dhbw.verteiltesysteme.quizduell.server.rest.representations;
 
 import dhbw.verteiltesysteme.quizduell.server.model.AnswerSet;
 import dhbw.verteiltesysteme.quizduell.server.model.Player;
+import dhbw.verteiltesysteme.quizduell.server.model.PlayerAnswers;
 import dhbw.verteiltesysteme.quizduell.server.model.Round;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,10 +18,10 @@ public class RoundRepresentation {
 
     public RoundRepresentation(Round round) {
         this.round = round.getNumber();
-        HashMap<Player, AnswerSet> answers = round.getPlayerAnswers();
+        List<PlayerAnswers> playerAnswers = round.getPlayerAnswers();
 
-        for (Player key : answers.keySet()) {
-            this.answersPerPlayer.put(key.getName(), answers.get(key).getAnswerCount());
+        for (PlayerAnswers answers : playerAnswers) {
+            this.answersPerPlayer.put(answers.getPlayer().getName(), answers.getAnswerSet().getAnswerCount());
         }
     }
 }

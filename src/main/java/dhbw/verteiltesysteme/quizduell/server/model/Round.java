@@ -1,10 +1,8 @@
 package dhbw.verteiltesysteme.quizduell.server.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Round {
@@ -12,7 +10,7 @@ public class Round {
     private int number;
     private int turn;
     private List<Question> questions = new ArrayList<>(3);
-    private HashMap<Player, AnswerSet> playerAnswers = new HashMap<>(3);
+    private List<PlayerAnswers> playerAnswers = new ArrayList<>(2);
 
     public Round() {
     }
@@ -28,7 +26,11 @@ public class Round {
             return;
         }
 
-        AnswerSet answers = this.playerAnswers.get(player);
+        AnswerSet answers = this.playerAnswers.stream()
+                .filter(a -> a.getPlayer().equals(player))
+                .map(a -> a.getAnswerSet())
+                .collect(Collectors.toList())
+                .get(0);
         answers.add(answer);
         this.turn++;
     }
@@ -68,12 +70,12 @@ public class Round {
         this.questions = questions;
     }
 
-    @Transient
-    public HashMap<Player, AnswerSet> getPlayerAnswers() {
+    @OneToMany
+    public List<PlayerAnswers> getPlayerAnswers() {
         return playerAnswers;
     }
 
-    public void setPlayerAnswers(HashMap<Player, AnswerSet> playerAnswers) {
+    public void setPlayerAnswers(List<PlayerAnswers> playerAnswers) {
         this.playerAnswers = playerAnswers;
     }
 }
