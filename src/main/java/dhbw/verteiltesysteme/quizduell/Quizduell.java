@@ -30,6 +30,7 @@ public class Quizduell extends Application{
         router.attach("/game/{gameId}/round/{roundNum}", RoundResource.class);
         router.attach("/game/{gameId}/round/{roundNum}/result", RoundResultResource.class);
         router.attach("/game/{gameId}/round/{roundNum}/turn/{turnNum}/question", QuestionResource.class);
+        router.attach("/game/{gameId}/round/{roundNum}/turn/{turnNum}/answer", AnswerResource.class);
         router.attach("/enter", RegistrationResource.class);
 
         return router;

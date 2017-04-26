@@ -21,7 +21,7 @@ public class RegistrationResource extends ServerResource{
 
         entityManager.getTransaction().begin();
         entityManager.persist(player);
-        //entityManager.flush();
+        entityManager.flush();
 
         TypedQuery<GameRoom> query = entityManager.createQuery("SELECT g FROM GameRoom g WHERE player1_id IS NULL OR player2_id IS NULL", GameRoom.class);
         List<GameRoom> openRooms = query.getResultList();

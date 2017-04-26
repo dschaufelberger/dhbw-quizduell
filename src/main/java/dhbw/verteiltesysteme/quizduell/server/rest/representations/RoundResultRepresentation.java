@@ -15,8 +15,8 @@ public class RoundResultRepresentation {
         for (PlayerAnswers answersOfPlayer : answersPerPlayer) {
             playerName = answersOfPlayer.getPlayer().getName();
             HashMap<Integer, Boolean> answerResults = new HashMap<>(3);
-            List<Answer> answers = answersOfPlayer.getAnswerSet().getAnswers();
-            for (int i = 0; i < answers.size(); i++) {
+            Map<Integer, Answer> answers = answersOfPlayer.getAnswerSet().getAnswers();
+            for (int i = 1; i <= answers.size(); i++) {
                 answerResults.put(i, answers.get(i).isCorrect());
             }
 

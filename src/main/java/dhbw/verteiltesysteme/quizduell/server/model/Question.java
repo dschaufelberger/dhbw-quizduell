@@ -57,7 +57,7 @@ public class Question {
         this.topic = topic;
     }
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @MapKeyColumn(name = "number")
     public Map<Integer, Answer> getAnswers() {
         return answers;

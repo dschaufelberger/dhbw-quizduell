@@ -15,14 +15,17 @@ public class Round {
     public Round() {
     }
 
-    public Round(int number, Collection<Question> questions) {
+    public Round(int number, Collection<Question> questions, List<Player> players) {
         this.number = number;
         this.questions = new ArrayList<>(questions);
         this.turn = 1;
+        for (Player player : players) {
+            this.playerAnswers.add(new PlayerAnswers(player));
+        }
     }
 
-    public void provideAnswer(Player player, Answer answer) {
-        if (turn > 3) {
+    public void provideAnswer(Player player, Answer answer, int turn) {
+        if (this.turn > 3) {
             return;
         }
 
@@ -31,8 +34,9 @@ public class Round {
                 .map(a -> a.getAnswerSet())
                 .collect(Collectors.toList())
                 .get(0);
-        answers.add(answer);
-        this.turn++;
+        if (this.turn == turn && !answers.getAnswers().containsKey(turn)) {
+            answers.add(answer, this.turn++);
+        }
     }
 
     @Id
@@ -70,7 +74,7 @@ public class Round {
         this.questions = questions;
     }
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     public List<PlayerAnswers> getPlayerAnswers() {
         return playerAnswers;
     }

@@ -1,13 +1,12 @@
 package dhbw.verteiltesysteme.quizduell.server.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class AnswerSet {
     private int id;
-    private List<Answer> answers = new ArrayList<>(3);
+    private Map<Integer, Answer> answers = new HashMap(3);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,18 +28,18 @@ public class AnswerSet {
         return this.getAnswerCount() == 3;
     }
 
-    public void add(Answer answer) {
+    public void add(Answer answer, int turn) {
         if (!this.isComplete()) {
-            answers.add(answer);
+            this.answers.put(turn, answer);
         }
     }
 
-    @OneToMany
-    public List<Answer> getAnswers() {
-        return new ArrayList<>(this.answers);
+    @OneToMany(cascade = CascadeType.ALL)
+    public Map<Integer, Answer> getAnswers() {
+        return new HashMap<>(this.answers);
     }
 
-    public void setAnswers(List<Answer> answers) {
+    public void setAnswers(Map<Integer, Answer> answers) {
         this.answers = answers;
     }
 }

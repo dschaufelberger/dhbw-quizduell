@@ -17,6 +17,19 @@ public class GameRoom {
     }
 
     @Transient
+    public Player getPlayerByName(String name) {
+        if (this.player1.getName().equals(name)) {
+            return this.player1;
+        }
+
+        if (this.player2.getName().equals(name)) {
+            return this.player2;
+        }
+
+        return null;
+    }
+
+    @Transient
     public Round getCurrentRound() {
         return this.match.getCurrentRound();
     }
@@ -73,8 +86,33 @@ public class GameRoom {
 
         int capacity = 6;
         ArrayList<Round> rounds = new ArrayList<>(6);
+        ArrayList<Player> players = new ArrayList<Player>();
+        players.add(getPlayer1());
+        players.add(getPlayer2());
+
         for (int roundNumber = 1; roundNumber <= capacity; roundNumber++) {
-            rounds.add(new Round(roundNumber, Collections.EMPTY_LIST));
+            ArrayList<Answer> answers = new ArrayList<>(4);
+            answers.add(new Answer("Ja", 1, true));
+            answers.add(new Answer("Nein",2, false));
+            answers.add(new Answer("Nö", 3,false));
+            answers.add(new Answer("Nope",4, false));
+            ArrayList<Answer> answers2 = new ArrayList<>(4);
+            answers2.add(new Answer("Ja", 1, true));
+            answers2.add(new Answer("Nein",2, false));
+            answers2.add(new Answer("Nö", 3,false));
+            answers2.add(new Answer("Nope",4, false));
+            ArrayList<Answer> answers3 = new ArrayList<>(4);
+            answers3.add(new Answer("Ja", 1, true));
+            answers3.add(new Answer("Nein",2, false));
+            answers3.add(new Answer("Nö", 3,false));
+            answers3.add(new Answer("Nope",4, false));
+
+            ArrayList<Question> questions = new ArrayList<>(3);
+            questions.add(new Question("Siehst du mich?", "General", answers, answers.get(0)));
+            questions.add(new Question("Siehst du mich?", "General", answers2, answers2.get(0)));
+            questions.add(new Question("Siehst du mich?", "General", answers3, answers3.get(0)));
+
+            rounds.add(new Round(roundNumber, questions, players));
         }
 
         this.match = new Match(rounds);

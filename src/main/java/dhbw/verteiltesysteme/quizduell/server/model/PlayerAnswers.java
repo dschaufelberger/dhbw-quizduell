@@ -8,6 +8,14 @@ public class PlayerAnswers {
     private Player player;
     private AnswerSet answerSet;
 
+    public PlayerAnswers() {
+    }
+
+    public PlayerAnswers(Player player) {
+        this.player = player;
+        this.answerSet = new AnswerSet();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {

@@ -15,8 +15,9 @@ public class Answer {
     public Answer() {
     }
 
-    private Answer(String text, boolean isCorrect) {
+    public Answer(String text, int number, boolean isCorrect) {
         this.text = text;
+        this.number = number;
         this.isCorrect = isCorrect;
     }
 
