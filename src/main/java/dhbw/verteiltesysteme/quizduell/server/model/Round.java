@@ -24,7 +24,7 @@ public class Round {
         }
     }
 
-    public void provideAnswer(Player player, Answer answer, int turn) {
+    public void provideAnswer(Player player, Answer answer) {
         if (this.turn > 3) {
             return;
         }
@@ -34,7 +34,7 @@ public class Round {
                 .map(a -> a.getAnswerSet())
                 .collect(Collectors.toList())
                 .get(0);
-        if (this.turn == turn && !answers.getAnswers().containsKey(turn)) {
+        if (!answers.getAnswers().containsKey(this.turn)) {
             answers.add(answer, this.turn++);
         }
     }

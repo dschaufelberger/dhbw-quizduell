@@ -14,28 +14,37 @@ public class AnswerResource extends ServerResource {
 
     @Put
     public void sendAnswer(Representation representation) throws IOException {
-        String gameId = getAttribute("gameId");
-        String roundNum = getAttribute("roundNum");
-        String turnNum = getAttribute("turnNum");
+        String gameIdAttribute = getAttribute("gameId");
+        String roundNumAttribute = getAttribute("roundNum");
+        String turnNumAttribute = getAttribute("turnNum");
 
         EntityManager entityManager = Database.INSTANCE.getEntityManager();
-        GameRoom gameRoom = entityManager.find(GameRoom.class, Integer.parseInt(gameId));
+        GameRoom gameRoom = entityManager.find(GameRoom.class, Integer.parseInt(gameIdAttribute));
 
         if (gameRoom == null) {
             return;
         }
 
-        Round round = gameRoom.getMatch().getRound(Integer.parseInt(roundNum));
-        if (round == null) {
+        int roundNumber = Integer.parseInt(roundNumAttribute);
+        Round current = gameRoom.getCurrentRound();
+        if (current.getNumber() != roundNumber) {
             return;
         }
 
-        if (round.getTurn() == Integer.parseInt(turnNum)) {
+        int turnNumber = Integer.parseInt(turnNumAttribute);
+
+        if (current.getTurn() == turnNumber) {
             JacksonRepresentation<AnswerRepresentation> jsonAnswer = new JacksonRepresentation<>(representation, AnswerRepresentation.class);
             AnswerRepresentation answerRepresentation = jsonAnswer.getObject();
             Player player = gameRoom.getPlayerByName(answerRepresentation.playerName);
-            Answer answer = round.getQuestions().get(0).getAnswers().get(answerRepresentation.number);
-            round.provideAnswer(player, answer, Integer.parseInt(turnNum));
+            Answer answer = current.getQuestions().get(0).getAnswers().get(answerRepresentation.number);
+
+            entityManager.getTransaction().begin();
+
+            current.provideAnswer(player, answer);
+            entityManager.persist(gameRoom);
+
+            entityManager.getTransaction().commit();
         }
     }
 }

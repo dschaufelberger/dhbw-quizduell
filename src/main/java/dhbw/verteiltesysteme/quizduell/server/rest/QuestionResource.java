@@ -21,24 +21,27 @@ public class QuestionResource extends ServerResource {
 
     @Get
     public Representation getCurrentTurnQuestion() {
-        String gameId = getAttribute("gameId");
-        String roundNum = getAttribute("roundNum");
-        String turnNum = getAttribute("turnNum");
+        String gameIdAttribute = getAttribute("gameId");
+        String roundNumAttribute = getAttribute("roundNum");
+        String turnNumAttribute = getAttribute("turnNum");
 
         EntityManager entityManager = Database.INSTANCE.getEntityManager();
-        GameRoom gameRoom = entityManager.find(GameRoom.class, Integer.parseInt(gameId));
+        GameRoom gameRoom = entityManager.find(GameRoom.class, Integer.parseInt(gameIdAttribute));
 
         if (gameRoom == null) {
             return new EmptyRepresentation();
         }
 
-        Round round = gameRoom.getMatch().getRound(Integer.parseInt(roundNum));
-        if (round == null) {
+        int roundNumber = Integer.parseInt(roundNumAttribute);
+        Round current = gameRoom.getCurrentRound();
+        if (current.getNumber() != roundNumber) {
             return new EmptyRepresentation();
         }
 
-        if (round.getTurn() == Integer.parseInt(turnNum)) {
-            return new JacksonRepresentation<QuestionRepresentation>(new QuestionRepresentation(round.getQuestions().get(round.getTurn() - 1)));
+        int turnNumber = Integer.parseInt(turnNumAttribute);
+
+        if (current.getTurn() == turnNumber) {
+            return new JacksonRepresentation<>(new QuestionRepresentation(current.getQuestions().get(current.getTurn() - 1)));
         }
 
         return new EmptyRepresentation();
