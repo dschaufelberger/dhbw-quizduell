@@ -45,6 +45,12 @@ public class AnswerResource extends ServerResource {
             entityManager.persist(gameRoom);
 
             entityManager.getTransaction().commit();
+
+            if (current.isFinished()) {
+                entityManager.getTransaction().begin();
+                gameRoom.moveOn();
+                entityManager.getTransaction().commit();
+            }
         }
     }
 }

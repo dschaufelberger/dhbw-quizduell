@@ -2,7 +2,6 @@ package dhbw.verteiltesysteme.quizduell.server.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 @Entity
 public class GameRoom {
@@ -32,6 +31,10 @@ public class GameRoom {
     @Transient
     public Round getCurrentRound() {
         return this.match.getCurrentRound();
+    }
+
+    public void moveOn() {
+        this.match.startNextRound();
     }
 
     @Id
@@ -84,13 +87,12 @@ public class GameRoom {
             return;
         }
 
-        int capacity = 6;
-        ArrayList<Round> rounds = new ArrayList<>(6);
-        ArrayList<Player> players = new ArrayList<Player>();
+        ArrayList<Round> rounds = new ArrayList<>(Match.MAX_ROUNDS);
+        ArrayList<Player> players = new ArrayList<>(Match.MAX_PLAYERS);
         players.add(getPlayer1());
         players.add(getPlayer2());
 
-        for (int roundNumber = 1; roundNumber <= capacity; roundNumber++) {
+        for (int roundNumber = 1; roundNumber <= Match.MAX_ROUNDS; roundNumber++) {
             ArrayList<Answer> answers = new ArrayList<>(4);
             answers.add(new Answer("Ja", 1, true));
             answers.add(new Answer("Nein",2, false));

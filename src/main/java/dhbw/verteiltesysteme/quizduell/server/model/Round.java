@@ -6,11 +6,12 @@ import java.util.stream.Collectors;
 
 @Entity
 public class Round {
+
     private int id;
     private int number;
     private int turn;
-    private List<Question> questions = new ArrayList<>(3);
-    private List<PlayerAnswers> playerAnswers = new ArrayList<>(2);
+    private List<Question> questions = new ArrayList<>(Match.MAX_QUESTIONS);
+    private List<PlayerAnswers> playerAnswers = new ArrayList<>(Match.MAX_PLAYERS);
 
     public Round() {
     }
