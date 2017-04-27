@@ -24,6 +24,21 @@ public class Round {
         }
     }
 
+    @Transient
+    public boolean isFinished() {
+        if (turn != 3) {
+            return false;
+        }
+
+        for (PlayerAnswers answers : this.playerAnswers) {
+            if (!answers.getAnswerSet().isComplete()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public void provideAnswer(Player player, Answer answer) {
         if (this.turn > 3) {
             return;

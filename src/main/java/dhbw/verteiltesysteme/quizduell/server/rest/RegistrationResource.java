@@ -45,6 +45,6 @@ public class RegistrationResource extends ServerResource{
         entityManager.persist(room);
         entityManager.getTransaction().commit();
 
-        return new JacksonRepresentation<RegistrationRepresentation>(new RegistrationRepresentation(player, room));
+        return new JacksonRepresentation<>(new RegistrationRepresentation(player, room));
     }
 }
